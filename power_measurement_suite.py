@@ -1,7 +1,7 @@
 import SCPI
 import time
 
-totalSamples = 50000
+totalSamples = 5000
 sampleFreq = 500
 
 freq= SCPI.SCPI("172.17.5.121")
@@ -21,7 +21,7 @@ voltage.setTriggerCount(str(totalSamples))
 # wait for trigger
 voltage.setInitiate()
 
-current.setCurrentDC("100mA", "MAX")
+current.setCurrentDC("10mA", "MAX")
 current.setTriggerSource()
 current.setTriggerCount(str(totalSamples))
 current.setInitiate()
@@ -46,7 +46,11 @@ while 1:
 
 freq.setOutput(0)
 
+s = 0
 for i in range(0, totalSamples):
+	s += currentMeasurements[i] * voltageMeasurements[i]
 	print float(i)/float(sampleFreq), currentMeasurements[i], voltageMeasurements[i]
+
+print "Average Power Consumption: ", s/float(totalSamples)
 
 #print currentMeasurements
