@@ -5,12 +5,12 @@ totalSamples = 5000
 sampleFreq = 500
 
 freq= SCPI.SCPI("172.17.5.121")
-voltage = SCPI.SCPI("172.17.5.124")
-current = SCPI.SCPI("172.17.5.125")
+voltage = SCPI.SCPI("172.17.5.125")
+current = SCPI.SCPI("172.17.5.124")
 
 #setup freq gen
 freq.setSquare()
-freq.setVoltage(0,5)
+freq.setVoltage(0,3)
 freq.setFrequency(sampleFreq)
 
 #setup voltage meter
@@ -21,7 +21,7 @@ voltage.setTriggerCount(str(totalSamples))
 # wait for trigger
 voltage.setInitiate()
 
-current.setCurrentDC("10mA", "MAX")
+current.setCurrentDC("100mA", "MAX")
 current.setTriggerSource()
 current.setTriggerCount(str(totalSamples))
 current.setInitiate()

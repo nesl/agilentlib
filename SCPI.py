@@ -23,6 +23,10 @@ class SCPI:
         #square function
         self.s.send("FUNCtion SQUare\n")
         
+    def setSin(self):
+        #sine function
+        self.s.send("FUNCtion SIN\n")
+
     def setVoltage(self, low, high):
         #set initial voltage
         self.s.send("VOLTage:HIGH %.2f\n"%(high,))
@@ -31,6 +35,15 @@ class SCPI:
     def setFrequency(self, freq):
         #set initial frequency
         self.s.send("FREQuency %.2f\n"%(freq,))
+
+    def setLinSweep(self, start, stop, time):
+        #set linear sweep with the specified start/stop freqs
+    	self.s.send("FREQ:STAR %.2f\n"%(start,))
+    	self.s.send("FREQ:STOP %.2f\n"%(stop,))
+	self.s.send("SWE:SPAC LIN\n")
+	self.s.send("SWE:TIME %.3f\n"%(time,))
+	self.s.send("SWE:STAT ON\n")
+
 
     def setOutput(self, status):
         if status:
